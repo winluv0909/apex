@@ -1,0 +1,519 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+/* APEX brand theme */
+:root {
+  --background: #f5f7fb;
+  --foreground: #102448;
+
+  --card: #ffffff;
+  --card-foreground: #102448;
+  --popover: #ffffff;
+  --popover-foreground: #102448;
+
+  --primary: #082451;
+  --primary-foreground: #ffffff;
+
+  --secondary: #edf2f9;
+  --secondary-foreground: #102448;
+
+  --muted: #edf2f9;
+  --muted-foreground: #52647d;
+
+  --accent: #fff3d1;
+  --accent-foreground: #102448;
+
+  --destructive: #b42318;
+  --border: #dce4ef;
+  --input: #dce4ef;
+  --ring: #b98208;
+
+  --chart-1: #082451;
+  --chart-2: #e9ad25;
+  --chart-3: #3564a0;
+  --chart-4: #168578;
+  --chart-5: #798ba5;
+
+  --radius: 0.875rem;
+
+  --sidebar: #082451;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #f2b72f;
+  --sidebar-primary-foreground: #082451;
+  --sidebar-accent: #153762;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #24466e;
+  --sidebar-ring: #f2b72f;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button:not(:disabled),
+  select {
+    cursor: pointer;
+  }
+
+  :where(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid #b98208;
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: #ffe5a1;
+    color: #082451;
+  }
+}
+
+.apex-brand-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(110deg, #ffffff 55%, #f0f4fa 100%);
+  border-top: 0;
+  border-bottom: 1px solid #dce4ef;
+  box-shadow: 0 8px 30px rgba(8, 36, 81, 0.05);
+}
+
+.apex-brand-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #082451 0%,
+    #082451 32%,
+    #edb127 65%,
+    #ffe6a5 100%
+  );
+}
+
+.apex-brand-header-inner {
+  width: min(100%, 1800px);
+  min-height: 116px;
+  margin-inline: auto;
+  padding: 22px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.apex-brand-link {
+  display: flex;
+  align-items: center;
+  width: clamp(240px, 25vw, 330px);
+  max-width: 100%;
+  flex-shrink: 0;
+  border-radius: 12px;
+  transition: opacity 180ms ease;
+}
+
+.apex-brand-link:hover {
+  opacity: 0.85;
+}
+
+.apex-brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.apex-brand-heading {
+  min-width: 0;
+  padding-left: 28px;
+  border-left: 1px solid #cdd7e6;
+}
+
+.apex-brand-eyebrow {
+  display: block;
+  color: #8a6309;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.apex-brand-caption {
+  margin: 6px 0 0;
+  color: #082451;
+  font-size: clamp(18px, 1.5vw, 24px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  text-align: left;
+  text-transform: none;
+}
+
+@media (max-width: 767px) {
+  .apex-brand-header-inner {
+    min-height: 100px;
+    padding: 20px 24px;
+    gap: 20px;
+  }
+
+  .apex-brand-link {
+    width: 230px;
+  }
+
+  .apex-brand-heading {
+    padding-left: 20px;
+  }
+
+  .apex-brand-caption {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 540px) {
+  .apex-brand-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .apex-brand-link {
+    width: 250px;
+  }
+
+  .apex-brand-heading {
+    padding-left: 14px;
+    border-left: 3px solid #edb127;
+  }
+
+  .apex-brand-eyebrow {
+    font-size: 11px;
+  }
+
+  .apex-brand-caption {
+    margin-top: 4px;
+    font-size: 18px;
+  }
+}
+
+  .apex-brand-caption {
+    display: none;
+}
+:root {
+  --apex-header-height: 112px;
+}
+
+/* Consistent header height gives the sidebar a reliable scroll offset. */
+.apex-brand-header-inner {
+  height: var(--apex-header-height);
+  min-height: var(--apex-header-height);
+  padding-block: 16px;
+}
+
+.apex-brand-link {
+  height: 76px;
+}
+
+.apex-brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.apex-workspace {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: start;
+  width: min(100%, 1800px);
+  margin-inline: auto;
+}
+
+.apex-sidebar {
+  position: sticky;
+  top: var(--apex-header-height);
+  max-height: calc(100dvh - var(--apex-header-height));
+  overflow-y: auto;
+  padding: 26px 20px;
+  background: rgba(255, 255, 255, 0.97);
+  border-right: 1px solid #dce4ef;
+  border-bottom: 1px solid #dce4ef;
+}
+
+.apex-content {
+  min-width: 0;
+  padding: 36px;
+}
+
+.apex-panel {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #dce4ef;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 6px 24px rgba(8, 36, 81, 0.045);
+}
+
+.apex-section-title {
+  color: #082451;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+}
+
+.apex-description {
+  margin-top: 8px;
+  color: #52647d;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.apex-stat {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #dce4ef;
+  border-top: 4px solid #082451;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 6px 24px rgba(8, 36, 81, 0.045);
+}
+
+.apex-stat-gold {
+  border-top-color: #edb127;
+}
+
+.apex-control {
+  display: block;
+  max-width: 100%;
+  min-height: 50px;
+  padding: 10px 16px;
+  border: 1px solid #dce4ef;
+  border-radius: 12px;
+  background: #f8fafd;
+  color: #082451;
+  font-size: 18px;
+}
+
+.apex-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.apex-table thead {
+  background: #edf2f9;
+  color: #082451;
+}
+
+.apex-table th,
+.apex-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #dce4ef;
+  text-align: left;
+}
+
+.apex-table thead th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.apex-table tbody th {
+  font-weight: 500;
+}
+
+.apex-table td {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.apex-table tbody tr:nth-child(even) {
+  background: #f8fafd;
+}
+
+@media (max-width: 1023px) {
+  .apex-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .apex-sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-right: 0;
+  }
+
+  .apex-sidebar nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .apex-content {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 540px) {
+  :root {
+    --apex-header-height: 160px;
+  }
+
+  .apex-brand-header-inner {
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+  }
+
+  .apex-brand-link {
+    height: 65px;
+    width: 250px;
+  }
+
+  .apex-content {
+    padding: 24px 16px;
+  }
+
+  .apex-panel,
+  .apex-stat {
+    padding: 20px;
+  }
+
+  .apex-sidebar nav {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
