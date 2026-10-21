@@ -1,3 +1,4 @@
+import { canManageData, canViewDashboard } from "@/lib/permissions";
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -88,7 +89,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
       .limit(50),
   ]);
 
-  if (profileResult.error || !profileResult.data) {
+  if (profileResult.error || !profileResult.data || !canViewDashboard(profileResult.data.role)) {
     redirect("/login");
   }
 
@@ -102,9 +103,7 @@ export default async function ExpensesPage({ searchParams }: PageProps) {
 
   const banks = banksResult.data ?? [];
   const expenses = expensesResult.data ?? [];
-  const canEdit = ["owner", "admin", "staff"].includes(
-    profileResult.data.role
-  );
+  const canEdit = canManageData(profileResult.data.role);
 
   const now = new Date();
   const manilaDate = new Intl.DateTimeFormat("en-CA", {

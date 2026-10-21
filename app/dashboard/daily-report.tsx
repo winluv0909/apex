@@ -119,7 +119,7 @@ export default function DailyReportPanel({
     setError("");
 
     try {
-      // Refresh the data and check owner authorization again.
+      // Refresh the data and check report authorization again.
       const fresh = await loadReport(requestFromReport(report));
       setReport(fresh);
 

@@ -1,5 +1,7 @@
 "use server";
 
+import { canViewDashboard } from "@/lib/permissions";
+
 import { createClient } from "@/lib/supabase/server";
 
 export type ReportPeriod = "daily" | "monthly" | "annual";
@@ -196,8 +198,8 @@ export async function generateFinancialReport(
     .eq("id", auth.claims.sub)
     .single();
 
-  if (profileError || profile?.role !== "owner") {
-    throw new Error("Only the website owner can generate reports.");
+  if (profileError || !profile || !canViewDashboard(profile.role)) {
+    throw new Error("Only authorized APEX owners and viewers can generate reports.");
   }
 
   const today = manilaToday();
@@ -505,7 +507,7 @@ export async function generateFinancialReport(
     endDate,
     throughDate,
     generatedAt: new Date().toISOString(),
-    preparedBy: profile.full_name || "APEX owner",
+    preparedBy: profile.full_name || "APEX user",
     provisional: endDate >= today,
     incoming,
     outgoing,

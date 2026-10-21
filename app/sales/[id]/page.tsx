@@ -1,3 +1,4 @@
+import { canManageData, canViewDashboard } from "@/lib/permissions";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -43,6 +44,8 @@ export default async function SaleDetailsPage({
         .single(),
     ]);
 
+  if (profileResult.error || !canViewDashboard(profileResult.data?.role)) redirect("/login");
+
   if (!saleResult.data) notFound();
 
   if (paymentsResult.error || banksResult.error) {
@@ -53,7 +56,7 @@ export default async function SaleDetailsPage({
   const payments = paymentsResult.data ?? [];
   const banks = banksResult.data ?? [];
   const role = profileResult.data?.role;
-  const canEdit = ["owner", "admin", "staff"].includes(role ?? "");
+  const canEdit = canManageData(role);
 
   const toCentavos = (value: unknown) =>
     Math.round(Number(value ?? 0) * 100);

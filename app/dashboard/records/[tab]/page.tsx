@@ -1,3 +1,4 @@
+import { canManageData, canViewDashboard } from "@/lib/permissions";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import EntryForms from "../entry-forms";
@@ -169,7 +170,7 @@ export default async function RecordsPage({
     .eq("id", auth.claims.sub)
     .single();
 
-  if (error || !profile) redirect("/login");
+  if (error || !profile || !canViewDashboard(profile.role)) redirect("/login");
 
   const query = await searchParams;
   const currentYear = Number(manilaToday().slice(0, 4));
@@ -206,7 +207,7 @@ export default async function RecordsPage({
     banks.map((bank) => [String(bank.id), String(bank.name)]),
   );
 
-  const canEdit = ["owner", "admin", "staff"].includes(profile.role);
+  const canEdit = canManageData(profile.role);
 
   const outstandingAdvances =
     tab === "cash-advance"

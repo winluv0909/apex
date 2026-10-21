@@ -1,3 +1,4 @@
+import { canManageData, canViewDashboard } from "@/lib/permissions";
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -97,8 +98,9 @@ export default async function SalesPage({ searchParams }: PageProps) {
   }
 
   const profile = profileResult.data;
+  if (profileResult.error || !profile || !canViewDashboard(profile.role)) redirect("/login");
   const banks = banksResult.data ?? [];
-  const canEdit = profile?.role;
+  const canEdit = canManageData(profile.role);
 
   const paymentsBySale = new Map<
     string,
@@ -231,7 +233,7 @@ export default async function SalesPage({ searchParams }: PageProps) {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {["owner", "admin", "staff"].includes(canEdit ?? "") && (
+              {canEdit && (
                 <Link
                   href="#add-entry"
                   className="rounded-xl bg-[#f2b72f] px-5 py-3 font-bold text-[#082451] transition hover:bg-[#e9ad25]"
@@ -295,9 +297,7 @@ export default async function SalesPage({ searchParams }: PageProps) {
             </p>
           )}
 
-          {(canEdit === "owner" ||
-            canEdit === "admin" ||
-            canEdit === "staff") && (
+          {canEdit && (
             <SalesEntryForm
               key={saleType}
               saleType={saleType}

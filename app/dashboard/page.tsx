@@ -1,3 +1,4 @@
+import { canViewDashboard } from "@/lib/permissions";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -59,7 +60,7 @@ export default async function DashboardPage({
     .eq("id", auth.claims.sub)
     .single();
 
-  if (error || !profile || profile.role !== "owner") redirect("/login");
+  if (error || !profile || !canViewDashboard(profile.role)) redirect("/login");
 
   const today = manilaToday();
   const currentYear = Number(today.slice(0, 4));
@@ -438,7 +439,7 @@ export default async function DashboardPage({
             </Link>
           </details>
 
-          {profile.role === "owner" && (
+          {canViewDashboard(profile.role) && (
             <div className="mt-8">
               <DailyReportPanel today={today} />
             </div>

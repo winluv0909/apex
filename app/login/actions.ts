@@ -1,5 +1,7 @@
 "use server";
 
+import { canViewDashboard } from "@/lib/permissions";
+
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
@@ -29,11 +31,11 @@ export async function signIn(formData: FormData) {
     .eq("id", data.user.id)
     .single();
 
-  if (profileError || !profile || profile.role !== "owner") {
+  if (profileError || !profile || !canViewDashboard(profile.role)) {
     await supabase.auth.signOut();
 
     redirect(
-      "/login?error=Only%20the%20APEX%20owner%20can%20access%20this%20website",
+      "/login?error=Access%20is%20limited%20to%20authorized%20APEX%20owners%20and%20viewers",
     );
   }
 
